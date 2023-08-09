@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,13 +67,46 @@ public class BookController {
      * actualizar el libro existente en base de datos
      */
     @PutMapping("/api/books")
-    public Book update(@RequestBody Book book){
+    public ResponseEntity<Book> update(@RequestBody Book book){
+        if(book.getId() == null) {
+            log.warn("Tryng to update a non existent book");
+            return ResponseEntity.badRequest().build();
 
-        return bookRepository.save(book);
+        }
+        if(!bookRepository.existsById(book.getId())){
+            log.warn("Tryng to update a non existent book");
+            return ResponseEntity.notFound().build();
+        }
+
+        Book result = bookRepository.save(book);
+        return ResponseEntity.ok(result); // El libro devuelto tiene una clave primaria
     }
 
-    //TODO! Me quede en el minuto 33:47 del video
+    //TODO! Borrar libro en base de datos
+    @DeleteMapping("/api/books/{id}")
+    public ResponseEntity<Book> delete(@PathVariable Long id){
+
+        if(!bookRepository.existsById(id)){
+            log.warn("Tryng to delete a non existent book");
+            return ResponseEntity.noContent().build();
+        }
+
+        bookRepository.deleteById(id);
+
+        return ResponseEntity.noContent().build(); 
+
+    }
+    @DeleteMapping("/api/books/")
+    public ResponseEntity<Book> deleteAll(){
+        log.info("REST request for deleting all books");
+        bookRepository.deleteAll();
+        return ResponseEntity.noContent().build(); 
+    }
+
+
+    }
     
 
     
-}
+
+
