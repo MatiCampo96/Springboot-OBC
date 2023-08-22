@@ -5,9 +5,15 @@ import java.time.LocalDate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 
+import com.example.obrestdatajpa.config.OpenApi;
 import com.example.obrestdatajpa.entities.Book;
 import com.example.obrestdatajpa.repository.BookRepository;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 
 @SpringBootApplication
 public class ObRestDatajpaApplication {

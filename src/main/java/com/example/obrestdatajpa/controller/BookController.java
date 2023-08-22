@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.obrestdatajpa.entities.Book;
 import com.example.obrestdatajpa.repository.BookRepository;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 public class BookController {
 
@@ -40,9 +45,10 @@ public class BookController {
     }
 
     //buscar 1 libro segun id
+    @Operation(description = "Obtiene un libro por su clave primaria, id Long")
     @GetMapping("/api/books/{id}")
-    public ResponseEntity<Book> findOneById(@PathVariable Long id){
-        Optional<Book> bookOpt = bookRepository.findById(id);
+    public ResponseEntity<Book> findOneById(@Parameter(description = "Clave primaria tipo Long")@PathVariable Long id){
+        Optional<Book> bookOpt = bookRepository.findById(id); 
         if(bookOpt.isPresent())
             return ResponseEntity.ok(bookOpt.get());
         else
@@ -82,7 +88,7 @@ public class BookController {
         return ResponseEntity.ok(result); // El libro devuelto tiene una clave primaria
     }
 
-    //TODO! Borrar libro en base de datos
+    @Hidden
     @DeleteMapping("/api/books/{id}")
     public ResponseEntity<Book> delete(@PathVariable Long id){
 
@@ -96,6 +102,7 @@ public class BookController {
         return ResponseEntity.noContent().build(); 
 
     }
+    @Hidden
     @DeleteMapping("/api/books/")
     public ResponseEntity<Book> deleteAll(){
         log.info("REST request for deleting all books");

@@ -2,6 +2,7 @@ package com.example.obrestdatajpa.entities;
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,10 +11,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
+@Schema(name = "Libros", description = "Entidad de libro, de papel")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "clave ficticia autoincremental tipo Long")
     private Long id;
 
     private String title;
