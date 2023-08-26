@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
-@Schema(name = "Libros", description = "Entidad de libro, de papel")
+@Schema(name = "Libro", description = "Entidad de libro, de papel")
 public class Book {
 
     @Id

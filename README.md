@@ -16,3 +16,6 @@ El acceso se puede realizar desde postman o navegador
 1.  Book
 2.  BookRepository
 3.  BookController
+
+
+Hay otra manera mas elegante, mediante annotations, de pasar la informacion de la openapi https://www.youtube.com/watch?v=2o_3hjUPAfQ

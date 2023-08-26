@@ -88,7 +88,7 @@ public class BookController {
         return ResponseEntity.ok(result); // El libro devuelto tiene una clave primaria
     }
 
-    @Hidden
+    @Hidden     //Ignora el metodo para que no aparezca en la documentación
     @DeleteMapping("/api/books/{id}")
     public ResponseEntity<Book> delete(@PathVariable Long id){
 
@@ -102,7 +102,7 @@ public class BookController {
         return ResponseEntity.noContent().build(); 
 
     }
-    @Hidden
+    @Hidden     //Ignora el metodo para que no aparezca en la documentación
     @DeleteMapping("/api/books/")
     public ResponseEntity<Book> deleteAll(){
         log.info("REST request for deleting all books");
